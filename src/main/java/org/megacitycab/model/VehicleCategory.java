@@ -8,15 +8,16 @@ public class VehicleCategory {
     private String categoryName;
     private byte[] imageData; // Store image as binary
     private Date createdDate;
-
+    private double price;
     // Constructors
     public VehicleCategory() {}
 
-    public VehicleCategory(int categoryID, String categoryName, byte[] imageData, Date createdDate) {
+    public VehicleCategory(int categoryID, String categoryName, byte[] imageData, Date createdDate, double price) {
         this.categoryID = categoryID;
         this.categoryName = categoryName;
         this.imageData = imageData;
         this.createdDate = createdDate;
+        this.price = price;
     }
 
     // Getters and Setters
@@ -50,6 +51,14 @@ public class VehicleCategory {
 
     public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     // Convert image bytes to Base64 string

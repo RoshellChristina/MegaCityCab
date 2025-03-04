@@ -76,4 +76,10 @@ public class Customer {
     public void setDateRegistered(Timestamp dateRegistered) {
         this.dateRegistered = dateRegistered;
     }
+
+
+    public int getCustomerID() {
+        return this.userId;
+    }
+
 }
