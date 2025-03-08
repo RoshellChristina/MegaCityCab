@@ -9,6 +9,7 @@ public class Review {
     private int rating;
     private String comments;
     private Date reviewDate;
+    private String userName;
 
     public Review() {}
 
@@ -49,4 +50,7 @@ public class Review {
     public void setReviewDate(Date reviewDate) {
         this.reviewDate = reviewDate;
     }
+
+    public String getUserName() { return userName; }
+    public void setUserName(String userName) { this.userName = userName; }
 }
