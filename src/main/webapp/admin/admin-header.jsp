@@ -14,10 +14,11 @@
     </div>
     <nav>
         <ul>
-            <li><a href="<c:url value='/admin/dashboard.jsp' />">Dashboard</a></li>
+            <li><a href="${pageContext.request.contextPath}/dashboard">Dashboard</a></li>
+
             <li><a href="<c:url value='/admin/manage-vehicle-categories.jsp' />">Vehicle Categories</a></li>
             <li><a href="<c:url value='/admin/manage-vehicles.jsp' />">Vehicles</a></li>
-            <li><a href="<c:url value='/admin/manage-drivers.jsp' />">Drivers</a></li>
+            <li><a href="${pageContext.request.contextPath}/DriverServlet?action=list">Drivers</a></li>
             <li><a href="<c:url value='/admin/manage-admins.jsp' />">Staff</a></li>
             <li><a href="<c:url value='/admin/manage-customers.jsp' />">Customers</a></li>
             <li><a href="<c:url value='/admin/manage-reviews.jsp' />">Reviews</a></li>
