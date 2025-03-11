@@ -104,6 +104,7 @@ public class AdminController extends HttpServlet {
             admin.setPasswordHash(BcryptUtil.hashPassword(password));
         }
         adminService.addAdmin(admin);
+        request.getSession().setAttribute("message", "Admin updated successfully!");
         response.sendRedirect("admin");
     }
 
@@ -143,6 +144,7 @@ public class AdminController extends HttpServlet {
             throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         adminService.deleteAdmin(id);
+        request.getSession().setAttribute("message", "Admin deleted successfully!");
         response.sendRedirect("admin");
     }
 }
