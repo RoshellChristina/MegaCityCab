@@ -68,8 +68,10 @@ public class ReviewController extends HttpServlet {
             review.setComments(comments);
 
             if (reviewService.addReview(review)) {
+                request.getSession().setAttribute("message", "Review added successfully!");
                 response.sendRedirect("ReviewController?action=list&success=Review added");
             } else {
+                request.getSession().setAttribute("message", "Failed to add review!");
                 response.sendRedirect("customer/manage-reviews.jsp?error=Failed to add review");
             }
         } catch (Exception e) {
@@ -102,8 +104,10 @@ public class ReviewController extends HttpServlet {
             review.setReviewDate(new Date());
 
             if (reviewService.updateReview(review)) {
+                request.getSession().setAttribute("message", "Review updated successfully!");
                 response.sendRedirect("ReviewController?action=list&success=Review updated");
             } else {
+                request.getSession().setAttribute("message", "Failed to update review!");
                 response.sendRedirect("customer/manage-reviews.jsp?error=Failed to update review");
             }
         } catch (Exception e) {
@@ -116,8 +120,10 @@ public class ReviewController extends HttpServlet {
         try {
             int reviewID = Integer.parseInt(request.getParameter("reviewID"));
             if (reviewService.deleteReview(reviewID)) {
+                request.getSession().setAttribute("message", "Review deleted successfully!");
                 response.sendRedirect("ReviewController?action=list&success=Review deleted");
             } else {
+                request.getSession().setAttribute("message", "Failed to delete review!");
                 response.sendRedirect("customer/manage-reviews.jsp?error=Failed to delete review");
             }
         } catch (Exception e) {
