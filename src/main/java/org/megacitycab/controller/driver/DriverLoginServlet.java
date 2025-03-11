@@ -57,7 +57,7 @@ public class DriverLoginServlet extends HttpServlet {
             session.setAttribute("driverID", driver.getDriverID());
 
             // Redirect to driver dashboard
-            response.sendRedirect("driver/driver-dashboard.jsp");
+            response.sendRedirect("driver/pending-bookings.jsp");
         } else {
             // Set error message and forward back to login page
             request.setAttribute("loginError", "Invalid username or password.");

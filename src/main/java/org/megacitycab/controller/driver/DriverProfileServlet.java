@@ -67,8 +67,10 @@ public class DriverProfileServlet extends HttpServlet {
             }
             if (driverService.updateDriver(driver)) {
                 request.getSession().setAttribute("loggedInDriver", driver);
+                request.getSession().setAttribute("message", "Profile updated successfully!");
                 response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?success=Profile updated");
             } else {
+
                 response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?error=Failed to update profile");
             }
         } else if ("registerVehicle".equals(action)) {
@@ -86,6 +88,7 @@ public class DriverProfileServlet extends HttpServlet {
                 // Save the new vehicle ID in driver (for UI pre-selection, etc.)
                 driver.setAssignedVehicleID(vehicle.getVehicleID());
                 request.getSession().setAttribute("loggedInDriver", driver);
+                request.getSession().setAttribute("message", "Vehicle registered successfully!");
                 response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?success=Vehicle registered");
             } else {
                 response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?error=Failed to register vehicle");
@@ -103,6 +106,7 @@ public class DriverProfileServlet extends HttpServlet {
             vehicle.setLicensePlate(licensePlate);
             vehicle.setColor(color);
             if (vehicleService.updateVehicle(vehicle)) {
+                request.getSession().setAttribute("message", "Vehicle updated successfully!");
                 response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?success=Vehicle updated");
             } else {
                 response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?error=Failed to update vehicle");
