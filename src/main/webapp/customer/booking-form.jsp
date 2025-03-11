@@ -114,9 +114,6 @@
 </form>
 </div>
 
-<a href="${pageContext.request.contextPath}/customerbooking?action=view">View My Bookings</a>
-
-
 <%@include file="cus-footer.jsp"%>
 </body>
 </html>
