@@ -22,4 +22,8 @@ public class PaymentService {
         return paymentDAO.updatePaymentStatus(bookingID, newStatus);
     }
 
+    public Payment getPaymentByBookingId(int bookingID) {
+        return paymentDAO.getPaymentByBookingId(bookingID);
+    }
+
 }

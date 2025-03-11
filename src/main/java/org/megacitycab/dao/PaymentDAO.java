@@ -54,6 +54,32 @@ public class PaymentDAO {
         return revenue;
     }
 
+    public Payment getPaymentByBookingId(int bookingID) {
+        Payment payment = null;
+        String sql = "SELECT * FROM payment WHERE BookingID = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, bookingID);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    payment = new Payment();
+                    payment.setBookingID(rs.getInt("BookingID"));
+                    payment.setUserID(rs.getInt("UserID"));
+                    payment.setAmount(rs.getDouble("Amount"));
+                    payment.setPaymentMethod(rs.getString("PaymentMethod"));
+                    payment.setStatus(rs.getString("Status"));
+                    // If your table includes a PaymentDate column, retrieve it as well:
+                    payment.setPaymentDate(rs.getTimestamp("PaymentDate"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return payment;
+    }
+
+
 }
 
 
