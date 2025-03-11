@@ -195,6 +195,40 @@
         </div>
     <button type="submit">Update Profile</button>
 </form>
+    <!-- Delete Account Form -->
+    <form id="deleteAccountForm" action="${pageContext.request.contextPath}/DriverProfileServlet" method="post">
+        <input type="hidden" name="action" value="deleteAccount">
+        <button type="button" id="deleteAccountButton" style="background-color: red; color: white;">Delete Account</button>
+    </form>
+
+    <!-- Delete Account Confirmation Modal -->
+    <div id="deleteModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 9999;">
+        <div class="modal-content" style="background: #fff; padding: 20px; border-radius: 8px; max-width: 400px; margin: 100px auto; text-align: center;">
+            <h3>Confirm Delete Account</h3>
+            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+            <button id="confirmDeleteAccount" style="background-color: red; color: white; padding: 10px 15px; border: none; border-radius: 4px; margin-right: 10px;">Yes, Delete</button>
+            <button id="cancelDeleteAccount" style="background-color: #134378; color: white; padding: 10px 15px; border: none; border-radius: 4px;">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // Show the modal when the delete button is clicked
+        document.getElementById('deleteAccountButton').addEventListener('click', function() {
+            console.log("Delete button clicked");
+            document.getElementById('deleteModal').style.display = 'block';
+        });
+
+        // Hide the modal when cancel is clicked
+        document.getElementById('cancelDeleteAccount').addEventListener('click', function() {
+            document.getElementById('deleteModal').style.display = 'none';
+        });
+
+        // Submit the form when confirming deletion
+        document.getElementById('confirmDeleteAccount').addEventListener('click', function() {
+            console.log("Confirm delete clicked");
+            document.getElementById('deleteAccountForm').submit();
+        });
+    </script>
     </div>
 
 <% if ("freelance".equalsIgnoreCase(driver.getEmpType())) { %>
@@ -247,5 +281,6 @@
     <% } %>
 </div>
 <%@ include file="driver-footer.jsp"%>
+
 </body>
 </html>
