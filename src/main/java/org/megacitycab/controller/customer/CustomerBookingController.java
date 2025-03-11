@@ -187,7 +187,7 @@ public class CustomerBookingController extends HttpServlet {
                 // No payment recorded now—the user will pay after ride completion.
                 request.setAttribute("message", "Booking created successfully. Payment will be processed after ride completion.");
             } else if (bookingID == -2) {
-                request.setAttribute("message", "Booking must be made at least 30 minutes in advance.");}
+                request.setAttribute("message", "Booking Failed! must be made at least 30 minutes in advance.");}
             else {
                 request.setAttribute("message", "Failed to create booking.");
             }
