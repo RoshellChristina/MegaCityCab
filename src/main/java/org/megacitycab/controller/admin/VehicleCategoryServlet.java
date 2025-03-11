@@ -33,6 +33,7 @@ public class VehicleCategoryServlet extends HttpServlet {
                     imageData = fileContent.readAllBytes(); // Convert to byte array
                 }
 
+                request.getSession().setAttribute("message", "Category added successfully!");
                 categoryService.addCategory(name, imageData, price);
 
             } else if ("update".equals(action)) {
@@ -48,6 +49,7 @@ public class VehicleCategoryServlet extends HttpServlet {
                     imageData = fileContent.readAllBytes();
                 }
 
+                request.getSession().setAttribute("message", "Category updated successfully!");
                 categoryService.updateCategory(id, name, imageData, price);
 
             } else if ("delete".equals(action)) {
@@ -58,10 +60,13 @@ public class VehicleCategoryServlet extends HttpServlet {
             // Redirect to the list of categories after any action
             response.sendRedirect("admin/manage-vehicle-categories.jsp");
 
+        } catch (NumberFormatException e) {
+            request.getSession().setAttribute("message", "Invalid number format! Please enter a valid price.");
+            response.sendRedirect("admin/manage-vehicle-categories.jsp");
         } catch (Exception e) {
-            // Handle errors gracefully (optional: log the error)
             e.printStackTrace();
-            response.sendRedirect("error.jsp"); // Redirect to an error page if necessary
+            request.getSession().setAttribute("message", "An unexpected error occurred. Please try again.");
+            response.sendRedirect("admin/manage-vehicle-categories.jsp");
         }
     }
 
@@ -74,6 +79,7 @@ public class VehicleCategoryServlet extends HttpServlet {
             try {
                 int id = Integer.parseInt(request.getParameter("categoryID"));
                 categoryService.deleteCategory(id);
+                request.getSession().setAttribute("message", "Category deleted successfully!");
                 response.sendRedirect(request.getContextPath() + "/admin/manage-vehicle-categories.jsp");
             } catch (Exception e) {
                 e.printStackTrace();
