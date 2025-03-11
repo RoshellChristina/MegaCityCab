@@ -47,9 +47,11 @@ public class AdminProfileServlet extends HttpServlet {
         boolean isUpdated = adminService.updateAdminProfile(admin);
 
         if (isUpdated) {
-            session.setAttribute("adminUser", admin);  // Update session with new info
+            session.setAttribute("adminUser", admin);
+            request.getSession().setAttribute("message", "Admin updated successfully!");// Update session with new info
             response.sendRedirect("admin/manage-profile.jsp?success=true");
         } else {
+            request.getSession().setAttribute("message", "Failed to update admin!");
             response.sendRedirect("admin/manage-profile.jsp?error=true");
         }
     }
