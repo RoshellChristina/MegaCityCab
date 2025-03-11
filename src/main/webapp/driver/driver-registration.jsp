@@ -123,7 +123,7 @@
     <input type="email" id="email" name="email" required>
 
     <label for="phoneNumber">Phone Number:</label>
-    <input type="text" id="phoneNumber" name="phoneNumber" required>
+    <input type="text" id="phoneNumber" name="phoneNumber" maxlength="10" pattern="\d{10}" title="Phone number must be 10 digits" required>
 
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
