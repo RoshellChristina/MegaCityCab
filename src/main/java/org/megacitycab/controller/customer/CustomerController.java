@@ -60,9 +60,6 @@ public class CustomerController extends HttpServlet {
             case "register": // Customer-side registration
                 registerCustomer(request, response);
                 break;
-            case "login": // Customer login
-                loginCustomer(request, response);
-                break;
             case "update":
                 updateCustomer(request, response);
                 break;
@@ -116,7 +113,9 @@ public class CustomerController extends HttpServlet {
             customer.setPasswordHash(BcryptUtil.hashPassword(password));
         }
 
+
         customerService.addCustomer(customer);
+        request.getSession().setAttribute("message", "Customer added successfully!");
         response.sendRedirect("customer");
     }
 
@@ -151,6 +150,7 @@ public class CustomerController extends HttpServlet {
         }
 
         customerService.addCustomer(customer);
+        request.getSession().setAttribute("message", "Customer registered successfully!");
         response.sendRedirect("customer/customer-login.jsp");
     }
 
@@ -187,8 +187,6 @@ public class CustomerController extends HttpServlet {
             request.getRequestDispatcher("customer/customer-login.jsp").forward(request, response);
         }
     }
-
-
 
 
     private void showEditForm(HttpServletRequest request, HttpServletResponse response)
@@ -235,6 +233,7 @@ public class CustomerController extends HttpServlet {
             customer.setPasswordHash(existing.getPasswordHash());
         }
         customerService.updateCustomer(customer);
+        request.getSession().setAttribute("message", "Customer updated successfully!");
         response.sendRedirect("customer");
     }
 
@@ -242,6 +241,8 @@ public class CustomerController extends HttpServlet {
             throws IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         customerService.deleteCustomer(id);
+        request.getSession().setAttribute("message", "Customer deleted successfully!");
         response.sendRedirect("customer");
     }
 }
+
