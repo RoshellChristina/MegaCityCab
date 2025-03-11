@@ -111,6 +111,14 @@ public class DriverProfileServlet extends HttpServlet {
             } else {
                 response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?error=Failed to update vehicle");
             }
+        }else if ("deleteAccount".equals(action)) {
+            // Delete driver account
+            if (driverService.deleteDriver(driver.getDriverID())) {  // Assume deleteDriver() returns a boolean
+                request.getSession().invalidate(); // Invalidate session after deletion
+                response.sendRedirect(request.getContextPath() + "/driver/driver-login.jsp?success=Account deleted");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?error=Failed to delete account");
+            }
         } else {
             response.sendRedirect(request.getContextPath() + "/DriverProfileServlet?error=Invalid action");
         }
