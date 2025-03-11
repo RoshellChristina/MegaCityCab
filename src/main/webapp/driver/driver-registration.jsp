@@ -54,14 +54,14 @@
   input[type="email"]:focus,
   input[type="password"]:focus,
   input[type="file"]:focus {
-    border-color: #007bff;
+    border-color: #134378;
     outline: none;
   }
 
   button {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
+    background-color: #134378;
     color: white;
     border: none;
     border-radius: 8px;
