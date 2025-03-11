@@ -63,7 +63,7 @@
         button {
             width: 100%;
             padding: 14px;
-            background-color: #4CAF50;
+            background-color: #226124;
             color: white;
             border: none;
             border-radius: 6px;
@@ -73,7 +73,7 @@
         }
 
         button:hover {
-            background-color: #45a049;
+            background-color: #67b56a;
         }
 
         .error-message {
