@@ -63,8 +63,10 @@ public class VehicleController extends HttpServlet {
             vehicle.setStatus("Inactive"); // Default status
 
             if (vehicleService.addVehicle(vehicle)) {
+                request.getSession().setAttribute("message", "Vehicle added successfully!");
                 response.sendRedirect("admin/manage-vehicles.jsp?success=Vehicle added");
             } else {
+                request.getSession().setAttribute("message", "Failed to add vehicle! Please try again.");
                 response.sendRedirect("admin/manage-vehicles.jsp?error=Failed to add vehicle");
             }
         } catch (Exception e) {
@@ -91,8 +93,10 @@ public class VehicleController extends HttpServlet {
             vehicle.setStatus(status);
 
             if (vehicleService.updateVehicle(vehicle)) {
+                request.getSession().setAttribute("message", "Vehicle updated successfully!");
                 response.sendRedirect("admin/manage-vehicles.jsp?success=Vehicle updated");
             } else {
+                request.getSession().setAttribute("message", "Failed to update vehicle! Please try again.!");
                 response.sendRedirect("admin/manage-vehicles.jsp?error=Failed to update vehicle");
             }
         } catch (Exception e) {
@@ -105,8 +109,10 @@ public class VehicleController extends HttpServlet {
         try {
             int vehicleID = Integer.parseInt(request.getParameter("vehicleID"));
             if (vehicleService.deleteVehicle(vehicleID)) {
+                request.getSession().setAttribute("message", "Vehicle deleted successfully!");
                 response.sendRedirect("admin/manage-vehicles.jsp?success=Vehicle deleted");
             } else {
+                request.getSession().setAttribute("message", "Failed to delete vehicle! Please try again.");
                 response.sendRedirect("admin/manage-vehicles.jsp?error=Failed to delete vehicle");
             }
         } catch (Exception e) {
@@ -155,8 +161,10 @@ public class VehicleController extends HttpServlet {
                 }
                 vehicle.setStatus(newStatus);
                 if (vehicleService.updateVehicle(vehicle)) {
+                    request.getSession().setAttribute("message", "Vehicle status updated successfully!");
                     response.sendRedirect(request.getContextPath() + "/admin/manage-vehicles.jsp?success=Status toggled");
                 } else {
+                    request.getSession().setAttribute("message", "Failed to update vehicle status! Please try again.");
                     response.sendRedirect(request.getContextPath() + "/admin/manage-vehicles.jsp?error=Failed to toggle status");
                 }
             } else {
