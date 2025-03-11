@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.megacitycab.model.Review" %>
 <%@ page import="org.megacitycab.service.customer.ReviewService" %>
+<%@ page import="org.megacitycab.model.Customer" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
@@ -112,6 +113,28 @@
 <body>
 <%@ include file="cus-header.jsp" %>
 
+<%
+    // Fetch session and customer ID
+    HttpSession cussession = request.getSession(false);
+    Integer customerID = (Integer) cussession.getAttribute("customerID");
+
+    // Check if the customer ID is null, meaning the user is not logged in
+    if (customerID == null) {
+        response.sendRedirect("customer-login.jsp");
+        return; // Stop further execution if the user is not logged in
+    }
+%>
+<%
+    // Retrieve notifications saved in the session
+    List<String> notifications = (List<String>) session.getAttribute("notifications");
+    if (notifications != null && !notifications.isEmpty()) {
+%>
+<script>
+    <% for(String notification : notifications) { %>
+    alert("<%= notification %>");
+    <% } %>
+</script>
+<% } %>
 <!-- Hero Section -->
 <div class="hero">
     <h1>Welcome to Mega City Cab Service</h1>
