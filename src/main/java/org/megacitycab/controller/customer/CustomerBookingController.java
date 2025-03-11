@@ -99,7 +99,33 @@ public class CustomerBookingController extends HttpServlet {
             }
 
             out.flush();
-        } else {
+        } else if ("calculateFare".equals(action)) {
+            try {
+                int vehicleCategoryID = Integer.parseInt(request.getParameter("vehicleCategoryID"));
+                String bookingDateStr = request.getParameter("bookingDate");
+                // Convert bookingDate from "yyyy-MM-ddTHH:mm" to Timestamp
+                bookingDateStr = bookingDateStr.replace("T", " ") + ":00";
+                Timestamp bookingTimestamp = Timestamp.valueOf(bookingDateStr);
+                double distanceKm = Double.parseDouble(request.getParameter("distanceKm"));
+
+                // Get the category and its base price
+                VehicleCategory category = vehicleCategoryService.getCategoryById(vehicleCategoryID);
+                double basePrice = category.getPrice();
+
+                // Select the fare strategy and calculate fare
+                FareCalculationStrategy fareStrategy = FareStrategySelector.getFareStrategy(bookingTimestamp);
+                double fare = fareStrategy.calculateFare(basePrice, distanceKm);
+
+                // Return the fare as JSON
+                response.setContentType("application/json");
+                response.getWriter().write("{\"fare\":" + fare + "}");
+            } catch (Exception e) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().write("{\"error\":\"Error calculating fare.\"}");
+            }
+            return;
+        }
+        else {
             // Default action: display the booking form with available vehicle categories
             List<VehicleCategory> categories = vehicleCategoryService.getAllCategories();
             request.setAttribute("categories", categories);
@@ -140,9 +166,10 @@ public class CustomerBookingController extends HttpServlet {
                     String paymentMethod = request.getParameter("paymentMethod");
                     boolean paymentSaved = paymentService.createPayment(bookingID, customerID, amount, paymentMethod);
                     if (paymentSaved) {
+                        request.setAttribute("downloadReceipt", bookingID);
                         request.setAttribute("message", "Payment recorded successfully.");
                     } else {
-                        request.setAttribute("message", "Payment failed to record.");
+                        request.setAttribute("message", "Payment already made.");
                     }
                 } else {
                     request.setAttribute("message", "Invalid booking for payment.");
