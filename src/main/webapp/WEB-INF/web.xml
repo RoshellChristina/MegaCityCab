@@ -11,7 +11,7 @@
     <!-- Servlet mapping -->
     <servlet-mapping>
         <servlet-name>AdminLoginServlet</servlet-name>
-        <url-pattern>/admin/AdminLoginServlet</url-pattern>  <!-- This should match the form action -->
+        <url-pattern>/admin/AdminLoginServlet</url-pattern>
     </servlet-mapping>
 
 
