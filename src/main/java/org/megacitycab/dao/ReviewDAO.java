@@ -138,4 +138,48 @@ public class ReviewDAO {
 
         return reviews;
     }
+
+
+    public List<Review> getAllReviews() {
+        List<Review> reviews = new ArrayList<>();
+        String sql = "SELECT * FROM review ORDER BY ReviewDate DESC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                reviews.add(mapResultSetToReview(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reviews;
+    }
+
+    public List<Review> getReviewsByRating(int rating) {
+        List<Review> reviews = new ArrayList<>();
+        String sql = "SELECT * FROM review WHERE Rating = ? ORDER BY ReviewDate DESC";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, rating);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    reviews.add(mapResultSetToReview(rs));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return reviews;
+    }
+
+    private Review mapResultSetToReview(ResultSet rs) throws Exception {
+        Review review = new Review();
+        review.setReviewID(rs.getInt("ReviewID"));
+        review.setUserID(rs.getInt("UserID"));
+        review.setDriverID(rs.getInt("DriverID"));
+        review.setRating(rs.getInt("Rating"));
+        review.setComments(rs.getString("Comments"));
+        review.setReviewDate(rs.getTimestamp("ReviewDate"));
+        return review;
+    }
 }
