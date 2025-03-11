@@ -31,11 +31,62 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-        body {
-            background-image: url("<%= request.getContextPath() %>/images/img_4.png");
-            background-size: cover;
-        }
-    </style>
+    body {
+    background-image: url("<%= request.getContextPath() %>/images/img_4.png");
+    background-size: cover;
+    background-position: center;
+    font-family: 'Arial', sans-serif;
+    }
+
+    h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #333;
+    }
+
+    .table {
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table th {
+    background-color: #134378;
+    color: white;
+    text-align: center;
+    font-weight: 600;
+    }
+
+    .table td {
+    text-align: center;
+    vertical-align: middle;
+    }
+
+    .table tr:hover {
+    background-color: #f8f9fa;
+    }
+
+    .rating-stars {
+    font-size: 1.2em;
+    color: #ffc107;
+    }
+
+    .container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+    }
+
+    td, th {
+    padding: 12px;
+    }
+
+    .table-bordered th, .table-bordered td {
+    border: 1px solid #ddd;
+    }
+</style>
 </head>
 <body>
 <%@ include file="driver-header.jsp" %>
