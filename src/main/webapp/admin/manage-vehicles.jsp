@@ -67,6 +67,16 @@
 <div class="container mt-4">
   <h2>Manage Vehicles</h2>
 
+
+  <c:if test="${not empty sessionScope.message}">
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        ${sessionScope.message}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <% session.removeAttribute("message"); %>
+  </c:if>
+
+
   <!-- Filter by Category -->
   <form method="get" action="${pageContext.request.contextPath}/VehicleServlet" class="row g-3 mb-3">
     <input type="hidden" name="action" value="list" />
