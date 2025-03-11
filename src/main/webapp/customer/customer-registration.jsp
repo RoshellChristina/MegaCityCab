@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url("<%= request.getContextPath() %>/images/img_1.png");
+            background-image: url("<%= request.getContextPath() %>/images/img_2.png");
             background-size: cover;
             background-attachment: fixed;
             margin: 0;
@@ -61,7 +61,7 @@
         button {
             width: 100%;
             padding: 12px;
-            background-color: #226124;
+            background-color: #134378;
             color: white;
             border: none;
             border-radius: 8px;
@@ -71,7 +71,7 @@
         }
 
         button:hover {
-            background-color: #67b56a;
+            background-color: #32649a;
         }
 
         p {
