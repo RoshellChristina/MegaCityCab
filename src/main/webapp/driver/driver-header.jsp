@@ -14,8 +14,7 @@
     </div>
     <nav>
         <ul>
-            <li><a href="<c:url value='/driver/driver-dashboard.jsp' />">Home</a></li>
-            <li><a href="<c:url value='/driver/pending-bookings.jsp' />">Pending Bookings</a></li>
+            <li><a href="<c:url value='/driver/pending-bookings.jsp' />">Dashbord</a></li>
             <li><a href="<c:url value='/driver/accepted-bookings.jsp' />">My Bookings</a></li>
             <li><a href="<c:url value='/driver/reviews.jsp' />">My Reviews</a></li>
             <li><a href="<c:url value='/driver/manage-profile.jsp' />">Profile</a></li>
