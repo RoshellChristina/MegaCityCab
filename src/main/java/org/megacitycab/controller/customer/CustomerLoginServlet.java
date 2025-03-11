@@ -18,42 +18,18 @@ import java.util.List;
 public class CustomerLoginServlet extends HttpServlet {
     private CustomerService customerService = new CustomerServiceImpl();
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-
-        if (action == null) {
-            request.getRequestDispatcher("customer/customer-login.jsp").forward(request, response);
-        } else {
-            switch (action) {
-                case "register":
-                    request.getRequestDispatcher("customer/customer-registration.jsp").forward(request, response);
-                    break;
-                default:
-                    request.getRequestDispatcher("customer/customer-login.jsp").forward(request, response);
-                    break;
-            }
-        }
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
 
-        if (action == null) {
-            action = "";
-        }
-
-        switch (action) {
-            case "login":
-                loginCustomer(request, response);
-                break;
-
-            default:
-                response.sendRedirect("customer/customer-login.jsp");
-                break;
+        if ("login".equals(action)) {
+            loginCustomer(request, response);
+        } else if ("register".equals(action)) {
+            registerCustomer(request, response);
+        } else {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action.");
         }
     }
 
@@ -82,6 +58,7 @@ public class CustomerLoginServlet extends HttpServlet {
             BookingNotificationManager.getInstance().clearNotificationsForCustomer(customer.getCustomerID());
 
             // Redirect to the customer dashboard
+
             response.sendRedirect("customer/customer-dashboard.jsp");
         } else {
             // If login fails, set the error message and forward to login page
@@ -89,5 +66,39 @@ public class CustomerLoginServlet extends HttpServlet {
             request.getRequestDispatcher("customer/customer-login.jsp").forward(request, response);
         }
     }
+
+    private void registerCustomer(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        Customer customer = new Customer();
+
+        // Handle file upload for image
+        Part imagePart = request.getPart("imageFile");
+        String imageData;
+        if (imagePart != null && imagePart.getSize() > 0) {
+            try (InputStream is = imagePart.getInputStream()) {
+                imageData = ImageUtil.convertToBase64(is);
+            }
+        } else {
+            imageData = ImageUtil.getDefaultImage();
+        }
+        customer.setImageData(imageData);
+
+        customer.setName(request.getParameter("name"));
+        customer.setUsername(request.getParameter("username"));
+        customer.setEmail(request.getParameter("email"));
+        customer.setNic(request.getParameter("nic"));
+        customer.setPhoneNumber(request.getParameter("phoneNumber"));
+        customer.setAddress(request.getParameter("address"));
+
+        // Hash the password using BCrypt if provided
+        String password = request.getParameter("password");
+        if (password != null && !password.trim().isEmpty()) {
+            customer.setPasswordHash(BcryptUtil.hashPassword(password));
+        }
+
+        customerService.addCustomer(customer);
+        response.sendRedirect("customer/customer-login.jsp");
+    }
+
 
 }
