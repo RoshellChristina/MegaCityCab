@@ -13,6 +13,18 @@
         return; // Stop further execution if the user is not logged in
     }
 %>
+
+<% if (request.getAttribute("downloadReceipt") != null) {
+    int bookingID = (Integer) request.getAttribute("downloadReceipt");
+%>
+<script>
+    window.onload = function() {
+        // Trigger download by setting the window location to the download endpoint
+        window.location.href = '<%= request.getContextPath() %>/downloadReceipt?bookingID=<%= bookingID %>';
+    };
+</script>
+<% } %>
+
 <html>
 <head>
     <title>My Bookings</title>

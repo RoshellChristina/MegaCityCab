@@ -110,9 +110,48 @@
   <label for="distanceKm">Distance (in Km):</label>
   <input type="number" step="0.01" name="distanceKm" id="distanceKm" required/><br/><br/>
 
+  <div id="fareDisplay" style="margin-top:10px; font-weight: bold;"></div>
+
   <input type="submit" value="Book Ride"/>
 </form>
 </div>
+<script>
+  // Function to call the server to calculate the fare
+  async function calculateFare() {
+    const vehicleCategoryID = document.getElementById('vehicleCategoryID').value;
+    const bookingDate = document.getElementById('bookingDate').value;
+    const distanceKm = document.getElementById('distanceKm').value;
+
+    // Only perform calculation if all fields are filled
+    if(vehicleCategoryID && bookingDate && distanceKm) {
+      const params = new URLSearchParams({
+        vehicleCategoryID: vehicleCategoryID,
+        bookingDate: bookingDate,
+        distanceKm: distanceKm,
+        action: 'calculateFare'
+      });
+
+      try {
+        const response = await fetch('<%= request.getContextPath() %>/customerbooking?' + params.toString());
+        if(response.ok) {
+          const data = await response.json();
+          document.getElementById('fareDisplay').innerText = "Estimated Fare: " + data.fare;
+        } else {
+          document.getElementById('fareDisplay').innerText = "Error calculating fare";
+        }
+      } catch (error) {
+        document.getElementById('fareDisplay').innerText = "Error calculating fare";
+      }
+    }
+  }
+
+  // Add event listeners on fields
+  document.getElementById('vehicleCategoryID').addEventListener('change', calculateFare);
+  document.getElementById('bookingDate').addEventListener('change', calculateFare);
+  document.getElementById('distanceKm').addEventListener('input', calculateFare);
+</script>
+<!-- Element to display fare estimate -->
+
 
 <%@include file="cus-footer.jsp"%>
 </body>
