@@ -10,13 +10,13 @@
 <body>
 <header>
     <div class="logo">
-        <h1>MegaCityCab Admin</h1>
+        <h1>MegaCityCab Service</h1>
     </div>
     <nav>
         <ul>
             <li><a href="<c:url value='/customer/customer-dashboard.jsp' />">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/customerbooking?action=view">My Bookings</a></li>
             <li><a href="<c:url value='/customer/booking-form.jsp' />">Add Bookings</a></li>
+            <li><a href="${pageContext.request.contextPath}/customerbooking?action=view">My Bookings</a></li>
             <li><a href="<c:url value='/customer/manage-reviews.jsp' />">My Reviews</a></li>
             <li><a href="<c:url value='/customer/manage-profile.jsp' />">Profile</a></li>
             <li><a href="<c:url value='/customer/customer-logout.jsp' />">Logout</a></li>
