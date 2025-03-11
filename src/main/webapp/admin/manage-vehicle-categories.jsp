@@ -45,6 +45,23 @@
 <%@ include file="admin-header.jsp" %>
 <div class="container mt-4">
     <h2>Manage Vehicle Categories</h2>
+
+    <c:if test="${not empty sessionScope.message}">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                ${sessionScope.message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% session.removeAttribute("message"); %>
+    </c:if>
+
+    <c:if test="${not empty sessionScope.errorMessage}">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                ${sessionScope.errorMessage}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <% session.removeAttribute("errorMessage"); %>
+    </c:if>
+
     <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addCategoryModal">➕ Add New Category</button>
 
     <table class="table table-bordered">
