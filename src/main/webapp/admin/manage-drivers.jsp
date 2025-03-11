@@ -33,6 +33,13 @@ List<Vehicle> vehicles = (List<Vehicle>) request.getAttribute("vehicles");
 
 <html>
 <head>
+
+    <style>
+        body {
+            background-image: url("<%= request.getContextPath() %>/images/img_4.png");
+            background-size: cover;
+        }
+    </style>
     <title>Manage Drivers</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
@@ -109,6 +116,8 @@ List<Vehicle> vehicles = (List<Vehicle>) request.getAttribute("vehicles");
         }
 
     </script>
+
+
     <form id="deleteForm" method="post" action="${pageContext.request.contextPath}/DriverServlet">
         <input type="hidden" name="action" value="delete">
         <input type="hidden" name="driverID" id="deleteDriverID">

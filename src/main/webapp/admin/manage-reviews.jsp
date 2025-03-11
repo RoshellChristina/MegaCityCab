@@ -20,6 +20,10 @@
             max-height: 400px;
             overflow-y: auto;
         }
+         body {
+             background-image: url("<%= request.getContextPath() %>/images/img_4.png");
+             background-size: cover;
+         }
     </style>
 </head>
 <body>

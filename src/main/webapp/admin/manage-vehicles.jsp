@@ -54,7 +54,12 @@
     }
 
   </script>
-
+  <style>
+    body {
+      background-image: url("<%= request.getContextPath() %>/images/img_4.png");
+      background-size: cover;
+    }
+  </style>
   <form id="deleteForm" method="post" action="${pageContext.request.contextPath}/VehicleServlet">
     <input type="hidden" name="action" value="delete">
     <input type="hidden" name="vehicleID" id="deleteVehicleID">

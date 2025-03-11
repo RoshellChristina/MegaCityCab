@@ -34,6 +34,13 @@
 
     </script>
 
+    <style>
+        body {
+            background-image: url("<%= request.getContextPath() %>/images/img_4.png");
+            background-size: cover;
+        }
+    </style>
+
     <!-- Hidden form for deletion -->
     <form id="deleteForm" method="post" action="${pageContext.request.contextPath}/admin">
         <input type="hidden" name="action" value="delete">
