@@ -61,6 +61,14 @@ public class ReviewService {
         }
     }
 
+    public List<Review> getAllReviews() {
+        return reviewDAO.getAllReviews();
+    }
+
+    public List<Review> getReviewsByRating(int rating) {
+        return reviewDAO.getReviewsByRating(rating);
+    }
+
     public List<Review> getReviewsByDriverID(int driverID) {
         return reviewDAO.getReviewsByDriverID(driverID);
     }
