@@ -135,7 +135,7 @@
         const response = await fetch('<%= request.getContextPath() %>/customerbooking?' + params.toString());
         if(response.ok) {
           const data = await response.json();
-          document.getElementById('fareDisplay').innerText = "Estimated Fare: " + data.fare;
+          document.getElementById('fareDisplay').innerText = "Estimated Fare: $ " + data.fare;
         } else {
           document.getElementById('fareDisplay').innerText = "Error calculating fare";
         }

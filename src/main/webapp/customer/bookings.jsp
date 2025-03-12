@@ -180,7 +180,7 @@
         <td><%= b.getDistanceKm() %></td>
         <td><%= b.getStatus() %></td>
         <td>
-            <% if (!"Cancelled".equals(b.getStatus())) { %>
+            <% if (!"Cancelled".equals(b.getStatus()) && !"Completed".equals(b.getStatus()) && !"Paid".equals(b.getStatus())) { %>
             <a href="${pageContext.request.contextPath}/customerbooking?action=cancel&bookingID=<%= b.getBookingID() %>" class="btn">Cancel</a>
             <% } else { %>
             N/A
@@ -194,14 +194,15 @@
             N/A
             <% } %>
         </td>
-        <!-- In the table's Action column -->
+
         <td>
             <% if ("Completed".equals(b.getStatus())) { %>
-            <!-- The Pay button opens the payment modal passing the bookingID -->
             <button class="btn" onclick="openPaymentModal(<%= b.getBookingID() %>)">Pay</button>
-
+            <% } else if ("Paid".equals(b.getStatus())) { %>
+            N/A
             <% } %>
         </td>
+
     </tr>
     <%
             }
