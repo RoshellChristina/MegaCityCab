@@ -166,6 +166,7 @@ public class CustomerBookingController extends HttpServlet {
                     String paymentMethod = request.getParameter("paymentMethod");
                     boolean paymentSaved = paymentService.createPayment(bookingID, customerID, amount, paymentMethod);
                     if (paymentSaved) {
+                        bookingService.markBookingPaid(bookingID);
                         request.setAttribute("downloadReceipt", bookingID);
                         request.setAttribute("message", "Payment recorded successfully.");
                     } else {
