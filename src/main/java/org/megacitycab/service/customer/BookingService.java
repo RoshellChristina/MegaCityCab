@@ -60,6 +60,10 @@ public class BookingService {
         return bookingDAO.updateBookingStatus(bookingID, "Cancelled");
     }
 
+    public boolean markBookingPaid(int bookingID) {
+        return bookingDAO.updateBookingStatus(bookingID, "Paid");
+    }
+
     // Retrieve all bookings for a given customer
     public List<Booking> getBookingsByUserId(int userId) {
         return bookingDAO.getBookingsByUserId(userId);
