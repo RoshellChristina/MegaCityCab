@@ -73,7 +73,6 @@
         <thead>
         <tr>
             <th>UserID</th>
-            <th>Image</th>
             <th>Name</th>
             <th>Username</th>
             <th>Email</th>
@@ -88,9 +87,6 @@
         <c:forEach var="customer" items="${customerList}">
             <tr>
                 <td>${customer.userId}</td>
-                <td>
-                    <img src="data:image/png;base64,${customer.imageData}" alt="Customer Image" style="width:50px;height:50px;">
-                </td>
                 <td>${customer.name}</td>
                 <td>${customer.username}</td>
                 <td>${customer.email}</td>
