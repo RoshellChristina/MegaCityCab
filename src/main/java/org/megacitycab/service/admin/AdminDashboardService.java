@@ -8,4 +8,6 @@ public class AdminDashboardService {
     public Object getAnalytics(AnalyticsStrategy strategy) throws SQLException {
         return strategy.calculate();
     }
+
+
 }

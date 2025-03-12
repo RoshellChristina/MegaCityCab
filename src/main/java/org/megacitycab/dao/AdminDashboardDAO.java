@@ -98,4 +98,20 @@ public class AdminDashboardDAO {
         ps.close();
         return count;
     }
+
+    public double getRevenueByMonth(String month) throws SQLException {
+        String sql = "SELECT SUM(Amount) AS revenue FROM payment WHERE Status = 'Completed' AND MONTHNAME(PaymentDate) = ?";
+        Connection conn = DBConnection.getConnection();
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, month);
+        ResultSet rs = ps.executeQuery();
+        double revenue = 0;
+        if(rs.next()){
+            revenue = rs.getDouble("revenue");
+        }
+        rs.close();
+        ps.close();
+        return revenue;
+    }
+
 }
