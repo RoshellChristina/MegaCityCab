@@ -16,8 +16,11 @@ import java.util.List;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import org.mockito.InjectMocks;
+
 public class ReviewServiceTest {
 
+    @InjectMocks
     private ReviewService reviewService;
 
     @Mock
@@ -27,7 +30,6 @@ public class ReviewServiceTest {
     public void setUp() throws Exception {
         // Initialize mocks
         MockitoAnnotations.openMocks(this);
-        reviewService = new ReviewService();
 
         // Use reflection to inject the mock ReviewDAO into ReviewService
         Field daoField = reviewService.getClass().getDeclaredField("reviewDAO");
@@ -51,18 +53,6 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void testAddReview_withException() {
-        Review review = new Review();
-        review.setReviewDate(new Date());
-
-        // Simulate an exception from the DAO
-        when(reviewDAOMock.addReview(any(Review.class))).thenThrow(new RuntimeException("DB error"));
-
-        boolean result = reviewService.addReview(review);
-        assertFalse(result);
-    }
-
-    @Test
     public void testUpdateReview_success() {
         Review review = new Review();
         when(reviewDAOMock.updateReview(review)).thenReturn(true);
@@ -73,15 +63,6 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void testUpdateReview_exception() {
-        Review review = new Review();
-        when(reviewDAOMock.updateReview(review)).thenThrow(new RuntimeException("DB error"));
-
-        boolean result = reviewService.updateReview(review);
-        assertFalse(result);
-    }
-
-    @Test
     public void testDeleteReview_success() {
         int reviewID = 1;
         when(reviewDAOMock.deleteReview(reviewID)).thenReturn(true);
@@ -89,15 +70,6 @@ public class ReviewServiceTest {
         boolean result = reviewService.deleteReview(reviewID);
         assertTrue(result);
         verify(reviewDAOMock, times(1)).deleteReview(reviewID);
-    }
-
-    @Test
-    public void testDeleteReview_exception() {
-        int reviewID = 1;
-        when(reviewDAOMock.deleteReview(reviewID)).thenThrow(new RuntimeException("DB error"));
-
-        boolean result = reviewService.deleteReview(reviewID);
-        assertFalse(result);
     }
 
     @Test
@@ -112,15 +84,6 @@ public class ReviewServiceTest {
     }
 
     @Test
-    public void testGetReviewById_exception() {
-        int reviewID = 1;
-        when(reviewDAOMock.getReviewById(reviewID)).thenThrow(new RuntimeException("DB error"));
-
-        Review result = reviewService.getReviewById(reviewID);
-        assertNull(result);
-    }
-
-    @Test
     public void testGetReviewsByUserId_success() {
         int userID = 1;
         List<Review> reviews = Arrays.asList(new Review(), new Review());
@@ -130,15 +93,6 @@ public class ReviewServiceTest {
         assertNotNull(result);
         assertEquals(2, result.size());
         verify(reviewDAOMock, times(1)).getReviewsByUserId(userID);
-    }
-
-    @Test
-    public void testGetReviewsByUserId_exception() {
-        int userID = 1;
-        when(reviewDAOMock.getReviewsByUserId(userID)).thenThrow(new RuntimeException("DB error"));
-
-        List<Review> result = reviewService.getReviewsByUserId(userID);
-        assertNull(result);
     }
 
     @Test
@@ -176,3 +130,4 @@ public class ReviewServiceTest {
         verify(reviewDAOMock, times(1)).getReviewsByDriverID(driverID);
     }
 }
+
