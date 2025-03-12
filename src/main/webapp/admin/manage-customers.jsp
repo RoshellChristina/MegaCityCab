@@ -140,11 +140,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="nic" class="form-label">NIC:</label>
-                        <input type="text" id="nic" name="nic" class="form-control">
+                        <input type="text" id="nic" name="nic" class="form-control" maxlength="12" pattern="\d{12}" title="NIC must be 12 digits" required>
                     </div>
                     <div class="mb-3">
                         <label for="phoneNumber" class="form-label">Phone Number:</label>
-                        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control">
+                        <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" maxlength="10" pattern="\d{10}" title="Phone number must be 10 digits" required>
                     </div>
                     <div class="mb-3">
                         <label for="address" class="form-label">Address:</label>

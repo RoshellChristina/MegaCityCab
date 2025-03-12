@@ -202,7 +202,7 @@
         <form action="${pageContext.request.contextPath}/VehicleServlet" method="post">
           <div class="mb-3">
             <label for="licensePlate" class="form-label">License Plate:</label>
-            <input type="text" id="licensePlate" name="licensePlate" class="form-control" required>
+            <input type="text" id="licensePlate" name="licensePlate" class="form-control"  maxlength="10" pattern="[A-Z]{2}\d{2}[A-Z]{2}\d{4}" title="License plate must be in the format: XX00XX0000" required>
           </div>
           <div class="mb-3">
             <label for="color" class="form-label">Color:</label>
