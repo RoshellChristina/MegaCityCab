@@ -19,12 +19,13 @@ public class DefaultBookingConflictChecker implements BookingConflictChecker {
         for (Booking booking : acceptedBookings) {
             Timestamp existingStart = booking.getBookingDate();
             Timestamp existingEnd = booking.getBookingEndTime();
-            // If new booking starts before an existing booking ends
-            // AND ends after the existing booking starts, there is an overlap.
-            if (newBookingStart.before(existingEnd) && newBookingEnd.after(existingStart)) {
-                return true;
+
+            // Check if the new booking overlaps with the existing booking
+            if (!(newBookingEnd.before(existingStart) || newBookingStart.after(existingEnd))) {
+                return true; // Conflict detected
             }
         }
         return false;
     }
+
 }
