@@ -12,6 +12,7 @@ public class DefaultBookingConflictChecker implements BookingConflictChecker {
         this.bookingDAO = bookingDAO;
     }
 
+
     @Override
     public boolean hasConflict(int driverID, Timestamp newBookingStart, Timestamp newBookingEnd) {
         // Retrieve the driver's accepted bookings

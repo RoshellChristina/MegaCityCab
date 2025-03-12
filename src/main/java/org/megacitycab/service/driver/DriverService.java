@@ -15,6 +15,19 @@ public class DriverService {
     private BookingDAO bookingDAO = new BookingDAO();
     private VehicleDAO vehicleDAO = new VehicleDAO();
 
+    // Setters for Dependency Injection
+    public void setDriverDAO(DriverDAO driverDAO) {
+        this.driverDAO = driverDAO;
+    }
+
+    public void setBookingDAO(BookingDAO bookingDAO) {
+        this.bookingDAO = bookingDAO;
+    }
+
+    public void setVehicleDAO(VehicleDAO vehicleDAO) {
+        this.vehicleDAO = vehicleDAO;
+    }
+
 
     public boolean addDriver(Driver driver) {
         if(driver.getEmpType() == null || driver.getEmpType().isEmpty()){
