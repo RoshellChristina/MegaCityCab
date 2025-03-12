@@ -81,6 +81,12 @@ public class BookingService {
         return (hour >= 7 && hour < 10) || (hour >= 17 && hour < 20);
     }
 
-
+    public List<Booking> getBookings(String month) {
+        if (month != null && !month.trim().isEmpty()) {
+            return bookingDAO.getBookingsByMonth(month);
+        } else {
+            return bookingDAO.getAllBookings();
+        }
+    }
 
 }

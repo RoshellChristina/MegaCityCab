@@ -247,21 +247,62 @@ public class BookingDAO {
         return booking;
     }
 
-    public int getTotalBookings(){
-        int count = 0;
-        String sql = "SELECT COUNT(*) AS total FROM booking";
+    // Get all bookings (for the table view)
+    public List<Booking> getAllBookings() {
+        List<Booking> bookings = new ArrayList<>();
+        String sql = "SELECT * FROM booking";
         try (Connection conn = DBConnection.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
-
-            if(rs.next()){
-                count = rs.getInt("total");
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while(rs.next()){
+                Booking booking = new Booking();
+                booking.setBookingID(rs.getInt("BookingID"));
+                booking.setUserID(rs.getInt("UserID"));
+                booking.setVehicleCategoryID(rs.getInt("VehicleCategoryID"));
+                booking.setPickupAddress(rs.getString("PickupAddress"));
+                booking.setDropoffAddress(rs.getString("DropoffAddress"));
+                booking.setBookingDate(rs.getTimestamp("BookingDate"));
+                booking.setBookingEndTime(rs.getTimestamp("BookingEndTime"));
+                booking.setDistanceKm(rs.getDouble("DistanceKm"));
+                booking.setBookingMadeAt(rs.getTimestamp("BookingMadeAt"));
+                booking.setStatus(rs.getString("Status"));
+                bookings.add(booking);
             }
-        } catch(Exception e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return count;
+        return bookings;
     }
+
+    // Get bookings filtered by month (using the booking date)
+    public List<Booking> getBookingsByMonth(String month) {
+        List<Booking> bookings = new ArrayList<>();
+        String sql = "SELECT * FROM booking WHERE MONTHNAME(BookingDate) = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, month);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while(rs.next()){
+                    Booking booking = new Booking();
+                    booking.setBookingID(rs.getInt("BookingID"));
+                    booking.setUserID(rs.getInt("UserID"));
+                    booking.setVehicleCategoryID(rs.getInt("VehicleCategoryID"));
+                    booking.setPickupAddress(rs.getString("PickupAddress"));
+                    booking.setDropoffAddress(rs.getString("DropoffAddress"));
+                    booking.setBookingDate(rs.getTimestamp("BookingDate"));
+                    booking.setBookingEndTime(rs.getTimestamp("BookingEndTime"));
+                    booking.setDistanceKm(rs.getDouble("DistanceKm"));
+                    booking.setBookingMadeAt(rs.getTimestamp("BookingMadeAt"));
+                    booking.setStatus(rs.getString("Status"));
+                    bookings.add(booking);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return bookings;
+    }
+
 
 }
 
