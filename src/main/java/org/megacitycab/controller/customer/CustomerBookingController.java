@@ -56,7 +56,7 @@ public class CustomerBookingController extends HttpServlet {
                 if (paymentUpdated) {
                     request.setAttribute("message", "Booking and payment cancelled successfully.");
                 } else {
-                    request.setAttribute("message", "Booking cancelled but failed to update payment status.");
+                    request.setAttribute("message", "Booking cancelled.");
                 }
             } else {
                 request.setAttribute("message", "Failed to cancel booking.");
