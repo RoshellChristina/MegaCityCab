@@ -85,7 +85,7 @@ public class DriverService {
         if (vehicle != null) {
             boolean updated = bookingDAO.acceptBooking(bookingID, driverID, vehicle.getVehicleID());
             if (updated) {
-                // Update status to "Accepted" (or any other status as needed)
+
                 booking.setStatus("Accepted");
                 // Notify the registered observer(s)
                 BookingNotificationManager.getInstance().notifyObservers(booking);
@@ -107,12 +107,6 @@ public class DriverService {
             Booking booking = bookingDAO.getBookingById(bookingID);
             if (booking != null) {
                 booking.setStatus(status);
-
-                // Add customer notification
-                BookingNotificationManager.getInstance().addNotification(
-                        booking.getUserID(),
-                        "Your booking (ID: " + bookingID + ") status is now: " + status
-                );
 
                 // Notify observers (for live updates)
                 BookingNotificationManager.getInstance().notifyObservers(booking);
