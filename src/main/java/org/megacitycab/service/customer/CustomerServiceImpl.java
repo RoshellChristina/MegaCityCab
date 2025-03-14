@@ -40,5 +40,13 @@ public class CustomerServiceImpl implements CustomerService {
         return customerDAO.getCustomerByUsername(username);
     }
 
+    @Override
+    public Customer login(String username, String password) {
+        Customer customer = customerDAO.loginCustomer(username, password); // Fetch customer from DAO
+        if (customer == null) {
+            throw new RuntimeException("Invalid username or password");
+        }
+        return customer; // Return the customer if found
+    }
 }
 

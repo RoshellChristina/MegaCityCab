@@ -37,8 +37,14 @@ public class CustomerServiceImplTest {
     @Test
     public void testAddCustomer() {
         Customer customer = new Customer();
-        customer.setUserId(1);
+        customer.setImageData("image_data");
+        customer.setName("Test Name");
         customer.setUsername("testuser");
+        customer.setEmail("testuser@example.com");
+        customer.setNic("123456789V");
+        customer.setPhoneNumber("1234567890");
+        customer.setPasswordHash("hashed_password");
+        customer.setAddress("Test Address");
 
         // Call the method under test
         customerService.addCustomer(customer);
@@ -51,11 +57,40 @@ public class CustomerServiceImplTest {
     public void testUpdateCustomer() {
         Customer customer = new Customer();
         customer.setUserId(2);
+        customer.setImageData("updated_image_data");
+        customer.setName("Updated Name");
         customer.setUsername("updateuser");
+        customer.setEmail("updateuser@example.com");
+        customer.setNic("987654321V");
+        customer.setPhoneNumber("0987654321");
+        customer.setPasswordHash("updated_hashed_password");
+        customer.setAddress("Updated Address");
 
         customerService.updateCustomer(customer);
+
         verify(customerDAOMock, times(1)).updateCustomer(customer);
     }
+
+
+    @Test
+    public void testLoginCustomer() {
+        String username = "testuser";
+        String passwordHash = "hashed_password";
+
+        Customer mockCustomer = new Customer();
+        mockCustomer.setUsername(username);
+        mockCustomer.setPasswordHash(passwordHash);
+
+        when(customerDAOMock.loginCustomer(username, passwordHash)).thenReturn(mockCustomer);
+
+        Customer result = customerService.login(username, passwordHash);
+
+        assertNotNull(result);
+        assertEquals(username, result.getUsername());
+        verify(customerDAOMock, times(1)).loginCustomer(username, passwordHash);
+    }
+
+
 
     @Test
     public void testDeleteCustomer() {

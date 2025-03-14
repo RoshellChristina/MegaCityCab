@@ -143,6 +143,35 @@ public class CustomerDAOImpl implements CustomerDAO {
         return list;
     }
 
+
+    // Method for login
+    public Customer loginCustomer(String username, String passwordHash) {
+        String sql = "SELECT * FROM user WHERE Username = ? AND PasswordHash = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            stmt.setString(2, passwordHash);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Customer customer = new Customer();
+                    customer.setUserId(rs.getInt("UserID"));
+                    customer.setUsername(rs.getString("Username"));
+                    customer.setPasswordHash(rs.getString("PasswordHash"));
+                    customer.setName(rs.getString("Name"));
+                    customer.setEmail(rs.getString("Email"));
+                    customer.setNic(rs.getString("NIC"));
+                    customer.setPhoneNumber(rs.getString("PhoneNumber"));
+                    customer.setAddress(rs.getString("Address"));
+                    customer.setImageData(rs.getString("ImageData"));
+                    return customer;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     private Customer extractCustomerFromResultSet(ResultSet rs) throws SQLException {
         Customer customer = new Customer();
         customer.setUserId(rs.getInt("UserID"));

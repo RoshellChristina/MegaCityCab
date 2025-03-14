@@ -12,5 +12,8 @@ public interface CustomerDAO {
     Customer getCustomerById(int customerId);
     Customer getCustomerByUsername(String username);
     List<Customer> getAllCustomers();
+    
     int getUserCount();
+
+    Customer loginCustomer(String username, String password);
 }

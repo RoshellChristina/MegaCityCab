@@ -43,21 +43,26 @@ public class DriverServiceTest {
         driverService.setVehicleDAO(vehicleDAOMock);
     }
 
+
     @Test
     public void testAddDriver() {
         Driver newDriver = new Driver();
+        newDriver.setEmpType("Full-Time");
         newDriver.setName("John Doe");
+        newDriver.setDutyStatus("Available");
+        newDriver.setImageURL("http://example.com/image.jpg");
         newDriver.setUsername("johndoe");
-        // Hash the password before setting it
+        newDriver.setEmail("johndoe@example.com");
+        newDriver.setPhoneNumber("1234567890");
         String hashedPassword = BCrypt.hashpw("password123", BCrypt.gensalt());
         newDriver.setPasswordHash(hashedPassword);
 
-        when(driverDAOMock.addDriver(any(Driver.class))).thenReturn(true); // Mock DAO method
+        when(driverDAOMock.addDriver(any(Driver.class))).thenReturn(true);
 
         boolean result = driverService.addDriver(newDriver);
 
         assertTrue("Driver should be added successfully", result);
-        verify(driverDAOMock).addDriver(newDriver); // Verify interaction with mock
+        verify(driverDAOMock).addDriver(newDriver);
     }
 
     @Test
@@ -65,6 +70,12 @@ public class DriverServiceTest {
         Driver existingDriver = new Driver();
         existingDriver.setDriverID(1);
         existingDriver.setName("John Doe");
+        existingDriver.setDutyStatus("Unavailable");
+        existingDriver.setImageURL("http://example.com/image_updated.jpg");
+        existingDriver.setUsername("johndoe");
+        existingDriver.setEmail("johndoe_updated@example.com");
+        existingDriver.setPhoneNumber("0987654321");
+        existingDriver.setPasswordHash("updated_hashed_password");
 
         when(driverDAOMock.updateDriver(any(Driver.class))).thenReturn(true);
 
@@ -73,6 +84,7 @@ public class DriverServiceTest {
         assertTrue("Driver should be updated successfully", result);
         verify(driverDAOMock).updateDriver(existingDriver);
     }
+
 
     @Test
     public void testDeleteDriver() {
